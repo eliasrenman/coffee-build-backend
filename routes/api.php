@@ -14,6 +14,6 @@ Route::group(['middleware' => ['auth.github']], function () {
   });
 
   Route::group(['prefix' => 'user'], function() {
-    Route::patch('uuid', 'UserController@update');
+    Route::patch('uuid', 'User\UuidController@update');
   });
 });

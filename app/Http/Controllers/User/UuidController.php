@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Carbon;
 
-class UserController extends Controller
+class UuidController extends Controller
 {
     public function update(Request $request)
     {
