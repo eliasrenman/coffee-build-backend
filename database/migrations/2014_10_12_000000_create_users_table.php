@@ -16,6 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('github_id')->unsigned();
+            $table->char('api_token', 128);
+            $table->char('uuid', 24)->unique();
             $table->timestamps();
         });
     }
