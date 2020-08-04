@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
 
 class GithubAuthenticate
 {
@@ -17,10 +18,15 @@ class GithubAuthenticate
     public function handle($request, Closure $next)
     {
         try {
-
-            Socialite::driver('github')
+            $user = Socialite::driver('github')
                 ->stateless()
-                ->userFromToken($request->header('Authorization'));
+                ->userFromToken(Str::after($request->header('Authorization'), 'Bearer '));
+            
+            $request->merge(['user' => $user ]);
+            $request->setUserResolver(function () use ($user) {
+                return $user;
+            });
+            
             return $next($request);
         } catch (\Exception $e) {
             return abort(401, "Invalid Credentials");
