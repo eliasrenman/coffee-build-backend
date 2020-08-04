@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 
+
 class LoginController extends Controller
 {
     /**
@@ -24,8 +25,10 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        return collect(Socialite::driver('github')->stateless()->user())->only([
-          'token', 'name', 'avatar',
+        $user = collect(Socialite::driver('github')->stateless()->user())->only([
+          'token', 'name', 'avatar', 'id'
         ]);
+        \App\User::firstOrCreate(['github_id' => $user['id']]);
+        return $user;
     }
 }
