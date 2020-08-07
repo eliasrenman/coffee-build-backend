@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use NotificationChannels\WebPush\HasPushSubscriptions;
@@ -21,7 +20,6 @@ class User extends Authenticatable
     protected $fillable = [
         'github_id',
         'uuid',
-        'api_token'
     ];
 
 
@@ -36,5 +34,9 @@ class User extends Authenticatable
         $subscription->device = $device;
         $subscription->save();
     }
-    
+
+    public static function findByGithubId($githubUser)
+    {
+        return User::find($githubUser->id);
+    }
 }

@@ -11,6 +11,9 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['middleware' => ['auth.github']], function () {
   Route::group(['prefix' => 'user'], function() {
     Route::patch('/uuid', 'User\UuidController@update');
+
     Route::post('/subscription', 'User\PushSubscriptionController@store');
+    Route::get('/subscriptions', 'User\PushSubscriptionController@index');
+    Route::delete('/subscription/{id}', 'User\PushSubscriptionController@delete');
   });
 });
