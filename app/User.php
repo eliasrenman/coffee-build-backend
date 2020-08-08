@@ -40,7 +40,7 @@ class User extends Authenticatable
         return User::find($githubUser->id);
     }
 
-    public static function findByEID() {
-
+    public static function findByEID($eid) {
+        return User::where('eid', '=', $eid)->first();
     }
 }
