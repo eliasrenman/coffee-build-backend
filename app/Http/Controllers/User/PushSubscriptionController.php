@@ -18,7 +18,7 @@ class PushSubscriptionController extends Controller
             'keys.p256dh' => 'required'
         ]);
 
-        $user = User::findByGithubId($request->user);
+        $user = User::findByGithubUser($request->user);
         
         $user->updatePush($request->endpoint, $request->device, $request->keys['auth'], $request->keys['p256dh']);
         
@@ -27,7 +27,7 @@ class PushSubscriptionController extends Controller
 
     public function index(Request $request)
     {
-        $user = User::findByGithubId($request->user);
+        $user = User::findByGithubUser($request->user);
 
         return new PushSubscriptionCollection($user->pushSubscriptions);
     }

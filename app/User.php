@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'github_id',
-        'uuid',
+        'eid',
     ];
 
 
@@ -35,8 +35,12 @@ class User extends Authenticatable
         $subscription->save();
     }
 
-    public static function findByGithubId($githubUser)
+    public static function findByGithubUser($githubUser)
     {
         return User::find($githubUser->id);
+    }
+
+    public static function findByEID() {
+
     }
 }
