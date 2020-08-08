@@ -21,16 +21,15 @@ class GithubAuthenticate
             $github_user = Socialite::driver('github')
                 ->stateless()
                 ->userFromToken(Str::after($request->header('Authorization'), 'Bearer '));
-            
-            $request->merge(['user' => $github_user ]);
+
+            $request->merge(['user' => $github_user]);
             $request->setUserResolver(function () use ($github_user) {
                 return $github_user;
             });
-            
+
             return $next($request);
         } catch (\Exception $e) {
             return abort(401, "Invalid Credentials");
         }
-
     }
 }

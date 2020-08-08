@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'avatar' => $this['avatar'], 
             'id' => $this['id'],
             'uuid' => $this['uuid'],
+            'subscriptions' => new PushSubscriptionCollection($this['subscriptions']),
         ];
     }
 }

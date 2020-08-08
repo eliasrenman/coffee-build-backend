@@ -35,7 +35,8 @@ class LoginController extends Controller
         $dbUser = User::firstOrCreate(['github_id' => $user['id']],[
             'uuid' => Hashids::encode(floor(Carbon::now()->timestamp / 2) . $user['id'] . rand(0, 10)),
         ]);
+        $subscriptions = $dbUser->pushSubscriptions;
         
-        return new UserResource($user->merge($dbUser));
+        return new UserResource($user->merge($dbUser)->merge(['subscriptions' => $subscriptions]));
     }
 }
