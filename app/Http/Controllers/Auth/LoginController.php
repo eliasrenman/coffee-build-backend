@@ -18,7 +18,9 @@ class LoginController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('github')->stateless()->redirect()->getTargetUrl();
+        return [
+          "data" => Socialite::driver('github')->stateless()->redirect()->getTargetUrl()
+        ];
     }
 
     /**
